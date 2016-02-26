@@ -70,6 +70,12 @@ namespace ButtonClick
 			}
 
 			this.Content = mainStack;
+
+			// New code for loading previous keypad text.
+
+			App app = Application.Current as App;
+			displayLabel.Text = app.DisplayLabelText;
+			backspaceButton.IsEnabled = displayLabel.Text != null && displayLabel.Text.Length > 0;
 		}
 
 		void OnBackspaceButtonClicked(object sender , EventArgs args)
@@ -77,6 +83,9 @@ namespace ButtonClick
 			string text = displayLabel.Text;
 			displayLabel.Text = text.Substring(0, text.Length - 1);
 			backspaceButton.IsEnabled = displayLabel.Text.Length > 0;
+
+			App app = Application.Current as App;
+			app.DisplayLabelText = displayLabel.Text;
 		}
 
 		void onDigitButtonClicked(object sender , EventArgs args)
@@ -85,6 +94,8 @@ namespace ButtonClick
 			displayLabel.Text += (string)button.StyleId;
 			backspaceButton.IsEnabled = true;
 
+			App app = Application.Current as App;
+			app.DisplayLabelText = displayLabel.Text;
 		}
 	}
 }

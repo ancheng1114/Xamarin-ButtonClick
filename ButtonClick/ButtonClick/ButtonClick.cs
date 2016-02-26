@@ -6,6 +6,9 @@ namespace ButtonClick
 {
 	public class App : Application
 	{
+		const string displayLabelText = "displayLabelText";
+		public string DisplayLabelText { set; get; }
+
 		public App ()
 		{
 			// The root page of your application
@@ -21,6 +24,11 @@ namespace ButtonClick
 //				}
 //			};
 
+			if (Properties.ContainsKey (displayLabelText)) {
+
+				DisplayLabelText = (string)Properties [displayLabelText];
+			}
+
 			MainPage = new SimplestKeypadPage ();
 		}
 
@@ -32,6 +40,8 @@ namespace ButtonClick
 		protected override void OnSleep ()
 		{
 			// Handle when your app sleeps
+
+			Properties [displayLabelText] = DisplayLabelText;
 		}
 
 		protected override void OnResume ()
